@@ -1,9 +1,7 @@
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import Vehicle.Car;
 
-import static Vehicle.Air.addAirToCollection;
-import static Vehicle.Air.findPowerAndMaxHighOfFlying;
+import static Vehicle.Air.*;
 import static Vehicle.Car.*;
 
 public class Main {
@@ -38,7 +36,7 @@ public class Main {
                         findPriceAndMileage(scanner);
                         break;
                     case 4:
-                        checkTax();
+                        checkCarTax();
                         break;
                     case 5:
                         hasPassedInspectionTheMostExpensiveCar(scanner);
@@ -47,13 +45,14 @@ public class Main {
                         findPowerAndMaxHighOfFlying(scanner);
                         break;
                     case 7:
-                        // код для подсчета налога на самолеты
+                        checkAirTax();
                         break;
                     case 8:
-                        // код для определения самого дорогого самолета
+                        checkPowerAndPriceAndBrandTheMostExpensiveAir(scanner);
                         break;
                     case 9:
-                        // код для получения полной информации
+                        printAllAirplanes();
+                        printAllCars();
                         break;
                     case 0:
                         System.out.println("Выход из программы.");

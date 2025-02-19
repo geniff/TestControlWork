@@ -36,6 +36,16 @@ public class Car extends Characteristics implements ICar {
         System.out.print("Введите номер автомобиля: ");
         String number = scanner.next();
         System.out.print("Введите марку автомобиля: ");
+        // Проверка на уникальность номера
+        for (Characteristics vehicle : vehicleCharacteristics) {
+            if (vehicle instanceof Car) {
+                Car car = (Car) vehicle;
+                if (car.getNumberOfVehicle().equals(number)) {
+                    System.out.println("Ошибка: Автомобиль с таким номером уже существует.");
+                    return; // Завершаем метод, если номер уже есть
+                }
+            }
+        }
         String brand = scanner.next();
         System.out.print("Введите пробег: ");
         int mileage = scanner.nextInt();
@@ -46,14 +56,15 @@ public class Car extends Characteristics implements ICar {
         System.out.println("Машина добавлена в коллекцию.");
     }
 
-    public static void checkTax(){
+    public static void checkCarTax(){
         double totalTax = 0;
         for(Characteristics vehicle : vehicleCharacteristics) {
             if(vehicle instanceof Car) {
                 Car car = (Car) vehicle;
                 double tax = car.getPrice() * 0.05;
                 totalTax += tax;
-                System.out.println("Автомобиль: " + car.getBrand() + " , налог " + tax);
+                String number = car.getNumberOfVehicle();
+                System.out.println("Автомобиль: " + number + " , налог " + tax);
             }
         }
         System.out.println("Общий налог: " + totalTax);
@@ -106,6 +117,28 @@ public class Car extends Characteristics implements ICar {
                     found = true;
                     break;
                 }
+            }
+        }
+        if(!found) {
+            System.out.println("Машины не найдено.");
+        }
+    }
+
+    public static void printAllCars() {
+        if (vehicleCharacteristics.isEmpty()) {
+            System.out.println("Нет доступных автомобилей.");
+            return;
+        }
+
+        for (Characteristics vehicle : vehicleCharacteristics) {
+            if (vehicle instanceof Car) {
+                Car car = (Car) vehicle; // Приводим к типу Car
+                System.out.println("Номер: " + car.getNumberOfVehicle() +
+                        ", Марка: " + car.getBrand() +
+                        ", Цена: " + car.getPrice() +
+                        ", Мощность: " + car.getPowerInHorseStrength() +
+                        ", Пробег: " + car.getMileage() +
+                        ", Прошел техосмотр: " + car.isHasTechnicalInspectionPassed());
             }
         }
     }
